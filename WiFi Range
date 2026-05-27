@@ -1,0 +1,22 @@
+class Solution:
+    def wifiRange(self, s, x):
+        n = len(s)
+        diff = [0] * (n + 1)
+
+        for i in range(n):
+            if s[i] == '1':
+                l = max(0, i - x)
+                r = min(n - 1, i + x)
+
+                diff[l] += 1
+                if r + 1 < n:
+                    diff[r + 1] -= 1
+
+        coverage = 0
+
+        for i in range(n):
+            coverage += diff[i]
+            if coverage <= 0:
+                return False
+
+        return True
